@@ -10,14 +10,17 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.100.14",
     "lucide-react": "^1.16.0",
     "next": "16.1.1",
+    "nextjs-toploader": "^3.9.17",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@tanstack/react-query-devtools": "^5.100.14",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
