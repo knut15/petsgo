@@ -4,7 +4,7 @@ export default function Loading() {
       role="status"
       aria-live="polite"
       aria-label="로딩 중"
-      className="fixed inset-0 z-[60] bg-white/40 backdrop-blur-sm flex items-center justify-center"
+      className="fixed inset-0 z-[60] bg-[rgba(255,255,255,0.4)] flex items-center justify-center"
     >
       <div className="flex flex-col items-center gap-5">
         <svg
