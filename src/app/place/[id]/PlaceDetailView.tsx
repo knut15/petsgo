@@ -250,7 +250,7 @@ function PlaceDetailSkeleton() {
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-6 lg:mb-8 h-72 sm:h-[480px] lg:h-[560px] rounded-3xl bg-stone-200 animate-pulse" />
+        <div className="mb-6 lg:mb-8 h-64 sm:h-[400px] lg:h-[460px] bg-stone-200 animate-pulse" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {[200, 140, 220].map((h, i) => (

@@ -44,7 +44,7 @@ export default function ImageGallery({
 
   if (images.length === 0) {
     return (
-      <div className="rounded-3xl overflow-hidden bg-stone-100 h-72 sm:h-[480px] lg:h-[560px] flex items-center justify-center text-9xl border border-stone-200">
+      <div className="overflow-hidden bg-stone-100 h-64 sm:h-[400px] lg:h-[460px] flex items-center justify-center text-9xl border border-stone-200">
         {fallbackIcon}
       </div>
     );
@@ -55,7 +55,7 @@ export default function ImageGallery({
 
   return (
     <>
-      <div className="relative rounded-3xl overflow-hidden border border-stone-200 bg-stone-100">
+      <div className="relative overflow-hidden border border-stone-200 bg-stone-100">
         <div
           ref={scrollerRef}
           className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none"
@@ -64,7 +64,7 @@ export default function ImageGallery({
           {images.map((src, i) => (
             <div
               key={src + i}
-              className="snap-center shrink-0 w-full h-72 sm:h-[480px] lg:h-[560px] relative"
+              className="snap-center shrink-0 w-full h-64 sm:h-[400px] lg:h-[460px] relative"
             >
               <button
                 type="button"
