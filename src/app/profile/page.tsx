@@ -2,13 +2,15 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Heart, Bookmark, MessageSquare, LogOut, ExternalLink } from 'lucide-react';
+import { Heart, Bookmark, MessageSquare, LogOut, ExternalLink, Sparkles } from 'lucide-react';
 import { useSession } from '@/lib/supabase/useSession';
 import { useFavorites } from '@/lib/useFavorites';
+import { useProfile } from '@/lib/useProfile';
 import { createClient } from '@/lib/supabase/browser';
 import type { MemoRow } from '@/lib/supabase/types';
+import NicknameEditor, { type NicknameEditorHandle } from '@/components/NicknameEditor';
 
 interface MyMemoEntry {
   id: string;
@@ -43,6 +45,8 @@ export default function ProfilePage() {
   const router = useRouter();
   const { user, loading } = useSession();
   const { list: favorites } = useFavorites();
+  const { avatarUrl, displayName, nicknameSet } = useProfile();
+  const nicknameRef = useRef<NicknameEditorHandle>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -78,13 +82,6 @@ export default function ProfilePage() {
     );
   }
 
-  const displayName =
-    (user.user_metadata?.name as string | undefined) ||
-    (user.user_metadata?.full_name as string | undefined) ||
-    user.email?.split('@')[0] ||
-    '나';
-  const avatarUrl = user.user_metadata?.avatar_url as string | undefined;
-
   return (
     <div className="min-h-screen bg-stone-50">
       <header className="bg-stone-50 border-b border-stone-200">
@@ -100,6 +97,30 @@ export default function ProfilePage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-6">
+        {/* Nickname banner — show if user hasn't set custom nickname */}
+        {!nicknameSet && (
+          <div className="rounded-2xl border border-brand-soft bg-brand-soft/60 p-4 flex items-start gap-3">
+            <div className="shrink-0 w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center">
+              <Sparkles className="w-4 h-4" strokeWidth={2.2} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-sm font-semibold text-stone-900 mb-1">
+                닉네임을 설정해주세요
+              </div>
+              <p className="text-xs text-stone-600 mb-2">
+                공개 메모에는 본명이 노출될 수 있어요. 다른 사용자에게 보일 닉네임을 정해주세요.
+              </p>
+              <button
+                type="button"
+                onClick={() => nicknameRef.current?.startEdit()}
+                className="text-xs font-semibold text-brand hover:text-brand-dark"
+              >
+                지금 설정하기 →
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* User card */}
         <section className="bg-white rounded-2xl border border-stone-200 p-6 flex items-center gap-4">
           <div className="w-16 h-16 rounded-full overflow-hidden bg-stone-200 shrink-0">
@@ -112,9 +133,9 @@ export default function ProfilePage() {
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-lg font-bold text-stone-900 truncate">{displayName}</div>
+            <NicknameEditor ref={nicknameRef} />
             {user.email && (
-              <div className="text-sm text-stone-500 truncate">{user.email}</div>
+              <div className="text-sm text-stone-500 truncate mt-1">{user.email}</div>
             )}
           </div>
         </section>

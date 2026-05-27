@@ -27,6 +27,7 @@ export interface ProfileRow {
   id: string;
   display_name: string | null;
   avatar_url: string | null;
+  nickname_set: boolean;
   created_at: string;
 }
 

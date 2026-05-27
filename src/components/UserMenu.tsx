@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { LogOut, User as UserIcon, Heart } from 'lucide-react';
 import { useSession } from '@/lib/supabase/useSession';
+import { useProfile } from '@/lib/useProfile';
 import { createClient } from '@/lib/supabase/browser';
 
 interface Props {
@@ -15,6 +16,7 @@ export default function UserMenu({ size = 'md' }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, loading } = useSession();
+  const { displayName: profileDisplayName, avatarUrl: profileAvatar } = useProfile();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -52,12 +54,8 @@ export default function UserMenu({ size = 'md' }: Props) {
     );
   }
 
-  const displayName =
-    (user.user_metadata?.name as string | undefined) ||
-    (user.user_metadata?.full_name as string | undefined) ||
-    user.email?.split('@')[0] ||
-    '나';
-  const avatarUrl = user.user_metadata?.avatar_url as string | undefined;
+  const displayName = profileDisplayName;
+  const avatarUrl = profileAvatar;
 
   return (
     <div ref={ref} className="relative">

@@ -8,8 +8,12 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   display_name text,
   avatar_url text,
+  nickname_set boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+alter table public.profiles
+  add column if not exists nickname_set boolean not null default false;
 
 alter table public.profiles enable row level security;
 
