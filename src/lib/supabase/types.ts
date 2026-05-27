@@ -42,16 +42,19 @@ export interface Database {
         Row: ProfileRow;
         Insert: Partial<Omit<ProfileRow, 'created_at'>> & { id: string };
         Update: Partial<ProfileRow>;
+        Relationships: [];
       };
       favorites: {
         Row: FavoriteRow;
         Insert: Omit<FavoriteRow, 'added_at'> & { added_at?: string };
         Update: Partial<FavoriteRow>;
+        Relationships: [];
       };
       likes: {
         Row: LikeRow;
         Insert: Omit<LikeRow, 'created_at'> & { created_at?: string };
         Update: Partial<LikeRow>;
+        Relationships: [];
       };
       memos: {
         Row: MemoRow;
@@ -60,12 +63,17 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Omit<MemoRow, 'id' | 'user_id' | 'content_id'>>;
+        Relationships: [];
       };
     };
     Views: {
       like_counts: {
         Row: LikeCountRow;
+        Relationships: [];
       };
     };
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }

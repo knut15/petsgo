@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useFavorites, useHasMounted } from '@/lib/useFavorites';
 import PlaceCard from '@/components/PlaceCard';
 import EmptyState from '@/components/EmptyState';
+import UserMenu from '@/components/UserMenu';
 
 export default function FavoritesPage() {
   const mounted = useHasMounted();
@@ -17,9 +18,12 @@ export default function FavoritesPage() {
             <span className="text-2xl">🐕</span>
             <span className="font-bold text-stone-900">PetTrip</span>
           </Link>
-          <Link href="/" className="text-sm text-stone-600 hover:text-stone-900">
-            홈으로
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="text-sm text-stone-600 hover:text-stone-900">
+              홈으로
+            </Link>
+            <UserMenu size="sm" />
+          </div>
         </div>
       </header>
 

@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
 import {
   useSearchQuery,
   normalizeSearchParams,
   type SearchParams,
 } from '@/lib/queries';
+import UserMenu from '@/components/UserMenu';
 import { PAGE_SIZE, getAreaName, getCategoryName, RADIUS_OPTIONS } from '@/lib/constants';
 import PlaceCard from '@/components/PlaceCard';
 import SearchFilters from '@/components/SearchFilters';
@@ -53,16 +53,10 @@ export default function SearchView({ sp }: { sp: SP }) {
             <span className="font-bold text-stone-900">PetTrip</span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link
-              href="/favorites"
-              aria-label="즐겨찾기"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-rose-500 hover:bg-rose-50"
-            >
-              <Heart className="w-[18px] h-[18px]" strokeWidth={2.2} fill="currentColor" />
-            </Link>
             <Link href="/" className="text-sm text-stone-600 hover:text-stone-900">
               새 검색
             </Link>
+            <UserMenu size="sm" />
           </div>
         </div>
       </header>

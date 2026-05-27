@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { usePlaceDetailQuery } from '@/lib/queries';
+import UserMenu from '@/components/UserMenu';
+import LikeButton from '@/components/LikeButton';
+import MemoSection from '@/components/MemoSection';
 import { getCategoryName, getCategoryIcon } from '@/lib/constants';
 import ImageGallery from '@/components/ImageGallery';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -100,13 +102,7 @@ export default function PlaceDetailView({ id }: { id: string }) {
             </span>
           </nav>
           <div className="flex items-center gap-2 shrink-0">
-            <Link
-              href="/favorites"
-              aria-label="즐겨찾기 목록"
-              className="w-10 h-10 rounded-full flex items-center justify-center text-rose-500 hover:bg-rose-50"
-            >
-              <Heart className="w-5 h-5" strokeWidth={2.2} fill="currentColor" />
-            </Link>
+            <UserMenu size="sm" />
           </div>
         </div>
       </header>
@@ -168,6 +164,8 @@ export default function PlaceDetailView({ id }: { id: string }) {
                 address={address}
               />
             </section>
+
+            <MemoSection contentId={id} />
           </div>
 
           <aside className="lg:col-span-1">
@@ -209,6 +207,9 @@ export default function PlaceDetailView({ id }: { id: string }) {
                       contenttypeid: common.contenttypeid,
                     }}
                   />
+                  <div className="flex justify-center">
+                    <LikeButton contentId={id} />
+                  </div>
                   {common.tel && (
                     <a
                       href={`tel:${common.tel}`}

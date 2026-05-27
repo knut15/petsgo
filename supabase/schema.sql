@@ -15,7 +15,9 @@ alter table public.profiles enable row level security;
 
 drop policy if exists "profiles_select_all" on public.profiles;
 create policy "profiles_select_all" on public.profiles
-  for select using (true);
+  for select
+  to anon, authenticated
+  using (true);
 
 drop policy if exists "profiles_upsert_self" on public.profiles;
 create policy "profiles_upsert_self" on public.profiles
@@ -101,7 +103,9 @@ alter table public.likes enable row level security;
 
 drop policy if exists "likes_select_all" on public.likes;
 create policy "likes_select_all" on public.likes
-  for select using (true);
+  for select
+  to anon, authenticated
+  using (true);
 
 drop policy if exists "likes_insert_self" on public.likes;
 create policy "likes_insert_self" on public.likes
@@ -133,8 +137,18 @@ create index if not exists memos_user_idx
 alter table public.memos enable row level security;
 
 drop policy if exists "memos_select_public_or_self" on public.memos;
-create policy "memos_select_public_or_self" on public.memos
-  for select using (is_public or auth.uid() = user_id);
+drop policy if exists "memos_select_public" on public.memos;
+drop policy if exists "memos_select_own" on public.memos;
+
+create policy "memos_select_public" on public.memos
+  for select
+  to anon, authenticated
+  using (is_public);
+
+create policy "memos_select_own" on public.memos
+  for select
+  to authenticated
+  using (auth.uid() = user_id);
 
 drop policy if exists "memos_insert_self" on public.memos;
 create policy "memos_insert_self" on public.memos

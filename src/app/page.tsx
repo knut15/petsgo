@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { Heart } from 'lucide-react';
 import AreaSearch from '@/components/AreaSearch';
 import LocationSearch from '@/components/LocationSearch';
 import KeywordSearch from '@/components/KeywordSearch';
+import UserMenu from '@/components/UserMenu';
 
 type SearchTab = 'area' | 'location' | 'keyword';
 
@@ -34,14 +33,8 @@ export default function Home() {
                 장소 찾기
               </a>
             </div>
-            <div className="flex items-center gap-2">
-              <Link
-                href="/favorites"
-                aria-label="즐겨찾기"
-                className="w-11 h-11 rounded-full flex items-center justify-center text-rose-500 hover:bg-rose-50 transition-colors"
-              >
-                <Heart className="w-5 h-5" strokeWidth={2.2} fill="currentColor" />
-              </Link>
+            <div className="flex items-center gap-3">
+              <UserMenu />
               <button
                 onClick={() => setShowSearch(true)}
                 className="bg-brand text-white px-6 py-3 rounded-full font-semibold hover:bg-brand-dark transition-colors"
