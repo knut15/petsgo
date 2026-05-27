@@ -60,7 +60,7 @@ create trigger on_auth_user_created
 -- favorites: per-user place collection
 -- ──────────────────────────────────────────────────────────────────
 create table if not exists public.favorites (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
   content_id text not null,
   title text not null,
   addr1 text,
@@ -91,7 +91,7 @@ create policy "favorites_delete_self" on public.favorites
 -- likes: global counts, per-user record
 -- ──────────────────────────────────────────────────────────────────
 create table if not exists public.likes (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
   content_id text not null,
   created_at timestamptz not null default now(),
   primary key (user_id, content_id)
@@ -120,7 +120,7 @@ create policy "likes_delete_self" on public.likes
 -- ──────────────────────────────────────────────────────────────────
 create table if not exists public.memos (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null references public.profiles(id) on delete cascade,
   content_id text not null,
   body text not null check (char_length(body) between 1 and 200),
   is_public boolean not null default false,
