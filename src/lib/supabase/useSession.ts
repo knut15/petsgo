@@ -9,7 +9,15 @@ export function useSession() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const supabase = createClient();
+    let supabase: ReturnType<typeof createClient>;
+    try {
+      supabase = createClient();
+    } catch (e) {
+      console.error('Supabase client init failed; running as guest:', e);
+      setSession(null);
+      setLoading(false);
+      return;
+    }
 
     supabase.auth.getSession().then(({ data }: { data: { session: Session | null } }) => {
       setSession(data.session);
