@@ -385,11 +385,34 @@ macOS: 시스템 환경설정 > 일반 > 화면 모드 > 다크.
 
 - [ ] **Step 5: 신규 utility class 동작 확인**
 
-검증용 임시 변경 (커밋하지 않음):
-- 임의의 컴포넌트(예: `src/app/page.tsx` 최상단)에 `<h1 className="text-display-md">테스트</h1>` 한 줄 추가
-- 페이지에서 26px / weight 300 / letter-spacing -0.26px로 보이는지
-- `<div className="bg-canvas-cream">cream</div>` 추가 → `#f5e9d4` 배경으로 보이는지
-- 확인 후 변경 되돌리기 (git checkout)
+검증용 임시 라우트 (커밋하지 않음). 기존 파일 수정은 피하고 임시 라우트로 격리해 git 청결 유지:
+
+```bash
+mkdir -p src/app/_token-check
+cat > src/app/_token-check/page.tsx <<'EOF'
+export default function TokenCheck() {
+  return (
+    <div className="p-10 space-y-6">
+      <h1 className="text-display-md">display-md test</h1>
+      <div className="bg-canvas-cream p-6">canvas-cream</div>
+      <div className="bg-primary text-on-primary p-3 rounded-full inline-block">
+        primary pill
+      </div>
+    </div>
+  );
+}
+EOF
+```
+
+브라우저에서 http://localhost:3000/_token-check 진입:
+- `text-display-md`: 26px / weight 300 / letter-spacing -0.26px
+- `bg-canvas-cream`: `#f5e9d4` 배경
+- `bg-primary` + `text-on-primary`: indigo 필 + 흰 텍스트
+확인 후:
+
+```bash
+rm -rf src/app/_token-check
+```
 
 - [ ] **Step 6: 회귀 점검**
 
