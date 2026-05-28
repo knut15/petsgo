@@ -227,7 +227,7 @@ export default function PlaceDetailView({ id }: { id: string }) {
                   반려동물 동반 정보
                 </h2>
 
-                <div className="rounded-xl border border-stone-200 p-5 mb-4">
+                <div className="rounded-lg border border-stone-200 p-5 mb-4">
                   <div className="text-xs text-stone-500 mb-1">
                     동반 가능 여부
                   </div>
@@ -237,7 +237,7 @@ export default function PlaceDetailView({ id }: { id: string }) {
                 </div>
 
                 {petRows.length > 0 && (
-                  <dl className="rounded-xl border border-stone-200 px-5 py-2 mb-5 divide-y divide-dashed divide-stone-200">
+                  <dl className="rounded-lg border border-stone-200 px-5 py-2 mb-5 divide-y divide-dashed divide-stone-200">
                     {petRows.map((row) =>
                       row.fullWidth ? (
                         <div key={row.label} className="py-3">
