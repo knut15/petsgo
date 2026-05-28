@@ -1,33 +1,141 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand: #40a2e3;
-  --color-brand-dark: #2486c5;
-  --color-brand-deeper: #1a6ea3;
-  --color-brand-soft: #e6f2fb;
-  --color-brand-tint: #f4f9fd;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ============================================================ */
+  /* Brand & accent (Stripe DESIGN.md)                             */
+  /* ============================================================ */
+  --color-primary: #533afd;
+  --color-primary-deep: #4434d4;
+  --color-primary-press: #2e2b8c;
+  --color-primary-soft: #665efd;
+  --color-primary-subtle: #b9b9f9;
+  --color-brand-dark-900: #1c1e54;
+  --color-ruby: #ea2261;
+  --color-magenta: #f96bee;
+  --color-lemon: #9b6829;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* ============================================================ */
+  /* Surface                                                       */
+  /* ============================================================ */
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #f6f9fc;
+  --color-canvas-cream: #f5e9d4;
+  --color-hairline: #e3e8ee;
+  --color-hairline-input: #a8c3de;
+
+  /* ============================================================ */
+  /* Text                                                          */
+  /* ============================================================ */
+  --color-ink: #0d253d;
+  --color-ink-secondary: #273951;
+  --color-ink-mute: #64748d;
+  --color-ink-mute-2: #61718a;
+  --color-on-primary: #ffffff;
+
+  /* ============================================================ */
+  /* Backward-compat aliases (Sub-project 2-5에서 점진 제거)        */
+  /* ============================================================ */
+  --color-brand: var(--color-primary);
+  --color-brand-dark: var(--color-primary-deep);
+  --color-brand-deeper: var(--color-primary-press);
+  --color-brand-soft: var(--color-primary-subtle);
+  --color-brand-tint: var(--color-canvas-soft);
+
+  /* ============================================================ */
+  /* Font family                                                   */
+  /* ============================================================ */
+  --font-sans:
+    var(--font-inter, "Inter"), "Pretendard Variable", -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  /* ============================================================ */
+  /* Typography scale (Stripe DESIGN.md)                           */
+  /* ============================================================ */
+  /* Display */
+  --text-display-xxl: 3.5rem;
+  --text-display-xxl--line-height: 1.03;
+  --text-display-xxl--letter-spacing: -1.4px;
+  --text-display-xxl--font-weight: 300;
+
+  --text-display-xl: 3rem;
+  --text-display-xl--line-height: 1.15;
+  --text-display-xl--letter-spacing: -0.96px;
+  --text-display-xl--font-weight: 300;
+
+  --text-display-lg: 2rem;
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.64px;
+  --text-display-lg--font-weight: 300;
+
+  --text-display-md: 1.625rem;
+  --text-display-md--line-height: 1.12;
+  --text-display-md--letter-spacing: -0.26px;
+  --text-display-md--font-weight: 300;
+
+  /* Heading */
+  --text-heading-lg: 1.375rem;
+  --text-heading-lg--line-height: 1.1;
+  --text-heading-lg--letter-spacing: -0.22px;
+  --text-heading-lg--font-weight: 300;
+
+  --text-heading-md: 1.25rem;
+  --text-heading-md--line-height: 1.4;
+  --text-heading-md--letter-spacing: -0.2px;
+  --text-heading-md--font-weight: 300;
+
+  --text-heading-sm: 1.125rem;
+  --text-heading-sm--line-height: 1.4;
+  --text-heading-sm--letter-spacing: 0;
+  --text-heading-sm--font-weight: 300;
+
+  /* Body */
+  --text-body-lg: 1rem;
+  --text-body-lg--line-height: 1.4;
+  --text-body-lg--font-weight: 300;
+
+  --text-body-md: 0.9375rem;
+  --text-body-md--line-height: 1.4;
+  --text-body-md--font-weight: 300;
+
+  --text-body-tabular: 0.875rem;
+  --text-body-tabular--line-height: 1.4;
+  --text-body-tabular--letter-spacing: -0.42px;
+  --text-body-tabular--font-weight: 300;
+
+  /* UI */
+  --text-button-md: 1rem;
+  --text-button-md--line-height: 1;
+  --text-button-md--font-weight: 400;
+
+  --text-button-sm: 0.875rem;
+  --text-button-sm--line-height: 1;
+  --text-button-sm--font-weight: 400;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: -0.39px;
+  --text-caption--font-weight: 400;
+
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.4;
+  --text-micro--font-weight: 300;
+
+  --text-micro-cap: 0.625rem;
+  --text-micro-cap--line-height: 1.15;
+  --text-micro-cap--letter-spacing: 0.1px;
+  --text-micro-cap--font-weight: 400;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.4;
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @utility scrollbar-none {
