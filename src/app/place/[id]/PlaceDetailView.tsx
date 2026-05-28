@@ -241,10 +241,10 @@ export default function PlaceDetailView({ id }: { id: string }) {
                     {petRows.map((row) =>
                       row.fullWidth ? (
                         <div key={row.label} className="py-3">
-                          <dt className="text-sm text-stone-500 mb-1.5">
+                          <dt className="text-base font-semibold text-stone-900 mb-2">
                             {row.label}
                           </dt>
-                          <dd className="text-sm text-stone-900 font-medium leading-relaxed">
+                          <dd className="text-xs text-stone-700 leading-relaxed">
                             {row.value}
                           </dd>
                         </div>
