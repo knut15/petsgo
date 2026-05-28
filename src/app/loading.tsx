@@ -18,7 +18,7 @@ export default function Loading() {
             cy="32"
             r="26"
             fill="none"
-            stroke="#e6f2fb"
+            stroke="var(--color-hairline)"
             strokeWidth="6"
           />
           {/* Spinning arc */}
@@ -27,7 +27,7 @@ export default function Loading() {
             cy="32"
             r="26"
             fill="none"
-            stroke="#40a2e3"
+            stroke="var(--color-primary)"
             strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray="60 200"
@@ -44,7 +44,7 @@ export default function Loading() {
           </circle>
 
           {/* Paw prints — toe beans + pad, pulsing */}
-          <g fill="#40a2e3" transform="translate(32 33)">
+          <g fill="var(--color-primary)" transform="translate(32 33)">
             <ellipse cx="-7" cy="-3" rx="2.6" ry="3.2">
               <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite" begin="0s" />
             </ellipse>
