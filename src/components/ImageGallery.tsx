@@ -162,18 +162,35 @@ function Lightbox({
   const [current, setCurrent] = useState(startIndex);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
+  const goTo = useCallback((i: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    // 'auto' avoids animating through intermediate snap points, which would
+    // both flash the counter and (via the scroll listener below) race with
+    // the click that triggered the navigation.
+    el.scrollTo({ left: i * el.clientWidth, behavior: 'auto' });
+    setCurrent(i);
+  }, []);
+
   const prev = useCallback(() => {
-    setCurrent((i) => (i - 1 + images.length) % images.length);
-  }, [images.length]);
+    goTo((current - 1 + images.length) % images.length);
+  }, [current, images.length, goTo]);
 
   const next = useCallback(() => {
-    setCurrent((i) => (i + 1) % images.length);
-  }, [images.length]);
+    goTo((current + 1) % images.length);
+  }, [current, images.length, goTo]);
+
+  // Jump to the requested start index once on mount, without animation.
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (el && startIndex > 0) {
+      el.scrollLeft = startIndex * el.clientWidth;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     onIndexChange(current);
-    const el = scrollerRef.current;
-    if (el) el.scrollTo({ left: current * el.clientWidth, behavior: 'smooth' });
   }, [current, onIndexChange]);
 
   useEffect(() => {
@@ -277,7 +294,7 @@ function Lightbox({
               <button
                 key={src + i}
                 type="button"
-                onClick={() => setCurrent(i)}
+                onClick={() => goTo(i)}
                 aria-current={i === current}
                 aria-label={`${i + 1}번 이미지`}
                 className={`shrink-0 w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden transition-all ${

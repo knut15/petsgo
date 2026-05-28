@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import AreaSearch from '@/components/AreaSearch';
-import LocationSearch from '@/components/LocationSearch';
-import KeywordSearch from '@/components/KeywordSearch';
-import UserMenu from '@/components/UserMenu';
+import { useState } from "react";
+import AreaSearch from "@/components/AreaSearch";
+import LocationSearch from "@/components/LocationSearch";
+import KeywordSearch from "@/components/KeywordSearch";
+import UserMenu from "@/components/UserMenu";
 
-type SearchTab = 'area' | 'location' | 'keyword';
+type SearchTab = "area" | "location" | "keyword";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<SearchTab>('area');
+  const [activeTab, setActiveTab] = useState<SearchTab>("area");
   const [showSearch, setShowSearch] = useState(false);
 
   return (
@@ -23,13 +23,22 @@ export default function Home() {
               <span className="text-2xl font-bold text-gray-900">PetTrip</span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-gray-700 hover:text-brand transition-colors">
+              <a
+                href="#features"
+                className="text-gray-700 hover:text-brand transition-colors"
+              >
                 서비스 소개
               </a>
-              <a href="#how-it-works" className="text-gray-700 hover:text-brand transition-colors">
+              <a
+                href="#how-it-works"
+                className="text-gray-700 hover:text-brand transition-colors"
+              >
                 이용 방법
               </a>
-              <a href="#search" className="text-gray-700 hover:text-brand transition-colors">
+              <a
+                href="#search"
+                className="text-gray-700 hover:text-brand transition-colors"
+              >
                 장소 찾기
               </a>
             </div>
@@ -63,7 +72,8 @@ export default function Home() {
                 만들어보세요
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                전국의 반려동물 동반 가능한 관광지, 숙박, 음식점을 한눈에 찾아보세요.
+                전국의 반려동물 동반 가능한 관광지, 숙박, 음식점을 한눈에
+                찾아보세요.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
@@ -118,7 +128,8 @@ export default function Home() {
                 간편한 검색
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                지역별, 키워드, 내 주변 등 다양한 방법으로 원하는 장소를 쉽게 찾을 수 있어요.
+                지역별, 키워드, 내 주변 등 다양한 방법으로 원하는 장소를 쉽게
+                찾을 수 있어요.
               </p>
             </div>
 
@@ -130,7 +141,8 @@ export default function Home() {
                 검증된 정보
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                한국관광공사에서 제공하는 공식 데이터로 신뢰할 수 있는 정보를 제공합니다.
+                한국관광공사에서 제공하는 공식 데이터로 신뢰할 수 있는 정보를
+                제공합니다.
               </p>
             </div>
 
@@ -142,7 +154,8 @@ export default function Home() {
                 상세한 안내
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                반려동물 크기, 마릿수 제한, 추가 요금 등 필요한 모든 정보를 확인할 수 있어요.
+                반려동물 크기, 마릿수 제한, 추가 요금 등 필요한 모든 정보를
+                확인할 수 있어요.
               </p>
             </div>
           </div>
@@ -153,9 +166,7 @@ export default function Home() {
       <section id="how-it-works" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              이용 방법
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">이용 방법</h2>
             <p className="text-xl text-gray-600">
               3단계로 간편하게 여행지를 찾아보세요
             </p>
@@ -218,31 +229,31 @@ export default function Home() {
             <div className="p-6">
               <div className="flex gap-2 mb-6 border-b border-gray-200">
                 <button
-                  onClick={() => setActiveTab('area')}
+                  onClick={() => setActiveTab("area")}
                   className={`px-6 py-3 font-semibold transition-colors border-b-2 ${
-                    activeTab === 'area'
-                      ? 'border-brand text-brand'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                    activeTab === "area"
+                      ? "border-brand text-brand"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   지역별 검색
                 </button>
                 <button
-                  onClick={() => setActiveTab('location')}
+                  onClick={() => setActiveTab("location")}
                   className={`px-6 py-3 font-semibold transition-colors border-b-2 ${
-                    activeTab === 'location'
-                      ? 'border-brand text-brand'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                    activeTab === "location"
+                      ? "border-brand text-brand"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   내 주변 검색
                 </button>
                 <button
-                  onClick={() => setActiveTab('keyword')}
+                  onClick={() => setActiveTab("keyword")}
                   className={`px-6 py-3 font-semibold transition-colors border-b-2 ${
-                    activeTab === 'keyword'
-                      ? 'border-brand text-brand'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                    activeTab === "keyword"
+                      ? "border-brand text-brand"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   키워드 검색
@@ -250,9 +261,15 @@ export default function Home() {
               </div>
 
               <div className="min-h-[400px]">
-                {activeTab === 'area' && <AreaSearch onSubmit={() => setShowSearch(false)} />}
-                {activeTab === 'location' && <LocationSearch onSubmit={() => setShowSearch(false)} />}
-                {activeTab === 'keyword' && <KeywordSearch onSubmit={() => setShowSearch(false)} />}
+                {activeTab === "area" && (
+                  <AreaSearch onSubmit={() => setShowSearch(false)} />
+                )}
+                {activeTab === "location" && (
+                  <LocationSearch onSubmit={() => setShowSearch(false)} />
+                )}
+                {activeTab === "keyword" && (
+                  <KeywordSearch onSubmit={() => setShowSearch(false)} />
+                )}
               </div>
             </div>
           </div>
@@ -276,49 +293,6 @@ export default function Home() {
           </button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🐕</span>
-                <span className="text-2xl font-bold text-white">PetTrip</span>
-              </div>
-              <p className="text-gray-400">
-                반려동물과 함께하는 행복한 여행
-              </p>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">서비스</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#features" className="hover:text-white transition-colors">
-                    서비스 소개
-                  </a>
-                </li>
-                <li>
-                  <a href="#how-it-works" className="hover:text-white transition-colors">
-                    이용 방법
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">정보</h3>
-              <p className="text-sm text-gray-400">
-                데이터 제공: 한국관광공사
-                <br />
-                KorPetTourService API
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-            © 2026 PetTrip. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

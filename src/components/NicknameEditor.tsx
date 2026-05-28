@@ -26,8 +26,13 @@ const NicknameEditor = forwardRef<NicknameEditorHandle>(function NicknameEditor(
   }, [editing, displayName]);
 
   const validationError = editing ? validateNickname(draft) : null;
+  // supabase's PostgrestError isn't always `instanceof Error`, so reach for
+  // a `message` field directly. Without this, RLS/schema failures were silent
+  // — the save just appeared to do nothing.
   const errorMessage =
-    updateError instanceof Error ? updateError.message : null;
+    updateError && typeof updateError === 'object' && 'message' in updateError
+      ? String((updateError as { message: unknown }).message)
+      : null;
 
   const handleSave = async () => {
     if (validationError) return;

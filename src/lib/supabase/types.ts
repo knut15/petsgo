@@ -23,12 +23,17 @@ export interface MemoRow {
   updated_at: string;
 }
 
+export type PetSpecies = "dog" | "cat" | "other";
+
 export interface ProfileRow {
   id: string;
   display_name: string | null;
   avatar_url: string | null;
   nickname_set: boolean;
   created_at: string;
+  pet_name: string | null;
+  pet_species: PetSpecies | null;
+  pet_avatar_url: string | null;
 }
 
 export interface LikeCountRow {
@@ -41,29 +46,29 @@ export interface Database {
     Tables: {
       profiles: {
         Row: ProfileRow;
-        Insert: Partial<Omit<ProfileRow, 'created_at'>> & { id: string };
+        Insert: Partial<Omit<ProfileRow, "created_at">> & { id: string };
         Update: Partial<ProfileRow>;
         Relationships: [];
       };
       favorites: {
         Row: FavoriteRow;
-        Insert: Omit<FavoriteRow, 'added_at'> & { added_at?: string };
+        Insert: Omit<FavoriteRow, "added_at"> & { added_at?: string };
         Update: Partial<FavoriteRow>;
         Relationships: [];
       };
       likes: {
         Row: LikeRow;
-        Insert: Omit<LikeRow, 'created_at'> & { created_at?: string };
+        Insert: Omit<LikeRow, "created_at"> & { created_at?: string };
         Update: Partial<LikeRow>;
         Relationships: [];
       };
       memos: {
         Row: MemoRow;
-        Insert: Omit<MemoRow, 'id' | 'updated_at'> & {
+        Insert: Omit<MemoRow, "id" | "updated_at"> & {
           id?: string;
           updated_at?: string;
         };
-        Update: Partial<Omit<MemoRow, 'id' | 'user_id' | 'content_id'>>;
+        Update: Partial<Omit<MemoRow, "id" | "user_id" | "content_id">>;
         Relationships: [];
       };
     };

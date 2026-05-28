@@ -1,16 +1,26 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Heart, Bookmark, MessageSquare, LogOut, ExternalLink, Sparkles } from 'lucide-react';
-import { useSession } from '@/lib/supabase/useSession';
-import { useFavorites } from '@/lib/useFavorites';
-import { useProfile } from '@/lib/useProfile';
-import { createClient } from '@/lib/supabase/browser';
-import type { MemoRow } from '@/lib/supabase/types';
-import NicknameEditor, { type NicknameEditorHandle } from '@/components/NicknameEditor';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Heart,
+  Bookmark,
+  MessageSquare,
+  LogOut,
+  ExternalLink,
+  Sparkles,
+} from "lucide-react";
+import { useSession } from "@/lib/supabase/useSession";
+import { useFavorites } from "@/lib/useFavorites";
+import { useProfile } from "@/lib/useProfile";
+import { createClient } from "@/lib/supabase/browser";
+import type { MemoRow } from "@/lib/supabase/types";
+import NicknameEditor, {
+  type NicknameEditorHandle,
+} from "@/components/NicknameEditor";
+import PetCard from "@/components/PetCard";
 
 interface MyMemoEntry {
   id: string;
@@ -23,20 +33,23 @@ interface MyMemoEntry {
 async function fetchMyMemos(userId: string): Promise<MyMemoEntry[]> {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from('memos')
-    .select('id, content_id, body, is_public, updated_at')
-    .eq('user_id', userId)
-    .order('updated_at', { ascending: false });
+    .from("memos")
+    .select("id, content_id, body, is_public, updated_at")
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false });
   if (error) throw error;
-  return (data ?? []) as Pick<MemoRow, 'id' | 'content_id' | 'body' | 'is_public' | 'updated_at'>[];
+  return (data ?? []) as Pick<
+    MemoRow,
+    "id" | "content_id" | "body" | "is_public" | "updated_at"
+  >[];
 }
 
 async function fetchMyLikesCount(userId: string): Promise<number> {
   const supabase = createClient();
   const { count, error } = await supabase
-    .from('likes')
-    .select('content_id', { count: 'exact', head: true })
-    .eq('user_id', userId);
+    .from("likes")
+    .select("content_id", { count: "exact", head: true })
+    .eq("user_id", userId);
   if (error) throw error;
   return count ?? 0;
 }
@@ -50,19 +63,19 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace('/login?next=/profile');
+      router.replace("/login?next=/profile");
     }
   }, [loading, user, router]);
 
   const myMemos = useQuery({
-    queryKey: ['memos', 'all-mine', user?.id],
+    queryKey: ["memos", "all-mine", user?.id],
     queryFn: () => fetchMyMemos(user!.id),
     enabled: !!user,
     staleTime: 60 * 1000,
   });
 
   const likesCount = useQuery({
-    queryKey: ['likes', 'count-mine', user?.id],
+    queryKey: ["likes", "count-mine", user?.id],
     queryFn: () => fetchMyLikesCount(user!.id),
     enabled: !!user,
     staleTime: 60 * 1000,
@@ -71,7 +84,7 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/');
+    router.push("/");
   };
 
   if (loading || !user) {
@@ -86,11 +99,17 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-stone-50">
       <header className="bg-stone-50 border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-stone-600 hover:text-stone-900">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-stone-600 hover:text-stone-900"
+          >
             <span className="text-2xl">🐕</span>
             <span className="font-bold text-stone-900">PetTrip</span>
           </Link>
-          <Link href="/" className="text-sm text-stone-600 hover:text-stone-900">
+          <Link
+            href="/"
+            className="text-sm text-stone-600 hover:text-stone-900"
+          >
             홈으로
           </Link>
         </div>
@@ -108,7 +127,8 @@ export default function ProfilePage() {
                 닉네임을 설정해주세요
               </div>
               <p className="text-xs text-stone-600 mb-2">
-                공개 메모에는 본명이 노출될 수 있어요. 다른 사용자에게 보일 닉네임을 정해주세요.
+                공개 메모에는 본명이 노출될 수 있어요. 다른 사용자에게 보일
+                닉네임을 정해주세요.
               </p>
               <button
                 type="button"
@@ -125,7 +145,11 @@ export default function ProfilePage() {
         <section className="bg-white rounded-2xl border border-stone-200 p-6 flex items-center gap-4">
           <div className="w-16 h-16 rounded-full overflow-hidden bg-stone-200 shrink-0">
             {avatarUrl ? (
-              <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
+              <img
+                src={avatarUrl}
+                alt={displayName}
+                className="w-full h-full object-cover"
+              />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-2xl font-semibold text-stone-500">
                 {displayName.slice(0, 1).toUpperCase()}
@@ -135,10 +159,15 @@ export default function ProfilePage() {
           <div className="min-w-0 flex-1">
             <NicknameEditor ref={nicknameRef} />
             {user.email && (
-              <div className="text-sm text-stone-500 truncate mt-1">{user.email}</div>
+              <div className="text-sm text-stone-500 truncate mt-1">
+                {user.email}
+              </div>
             )}
           </div>
         </section>
+
+        {/* Pet */}
+        <PetCard />
 
         {/* Stats */}
         <section className="grid grid-cols-3 gap-3">
@@ -149,7 +178,9 @@ export default function ProfilePage() {
             href="/favorites"
           />
           <StatCard
-            icon={<Heart className="w-5 h-5" strokeWidth={2} fill="currentColor" />}
+            icon={
+              <Heart className="w-5 h-5" strokeWidth={2} fill="currentColor" />
+            }
             label="좋아요"
             value={likesCount.data ?? 0}
             iconClass="text-rose-500"
@@ -167,7 +198,10 @@ export default function ProfilePage() {
           {myMemos.isLoading ? (
             <div className="space-y-3">
               {[0, 1, 2].map((i) => (
-                <div key={i} className="h-20 bg-stone-100 rounded-xl animate-pulse" />
+                <div
+                  key={i}
+                  className="h-20 bg-stone-100 rounded-xl animate-pulse"
+                />
               ))}
             </div>
           ) : (myMemos.data?.length ?? 0) === 0 ? (
@@ -185,11 +219,11 @@ export default function ProfilePage() {
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded-full ${
                         memo.is_public
-                          ? 'bg-brand text-white'
-                          : 'bg-stone-200 text-stone-600'
+                          ? "bg-brand text-white"
+                          : "bg-stone-200 text-stone-600"
                       }`}
                     >
-                      {memo.is_public ? '공개' : '비공개'}
+                      {memo.is_public ? "공개" : "비공개"}
                     </span>
                     <span>{formatDate(memo.updated_at)}</span>
                   </div>
@@ -218,6 +252,16 @@ export default function ProfilePage() {
           <LogOut className="w-4 h-4" strokeWidth={2} />
           로그아웃
         </button>
+
+        {/* Delete account */}
+        <div className="text-center pt-2">
+          <Link
+            href="/profile/delete"
+            className="text-xs text-stone-400 hover:text-rose-600 underline underline-offset-2"
+          >
+            회원 탈퇴
+          </Link>
+        </div>
       </main>
     </div>
   );
@@ -238,20 +282,24 @@ function StatCard({
 }) {
   const body = (
     <div className="bg-white rounded-2xl border border-stone-200 p-4 hover:border-stone-300 transition-colors">
-      <div className={`flex items-center gap-2 text-stone-500 mb-2 ${iconClass ?? ''}`}>
+      <div
+        className={`flex items-center gap-2 text-stone-500 mb-2 ${iconClass ?? ""}`}
+      >
         {icon}
         <span className="text-xs font-medium">{label}</span>
       </div>
-      <div className="text-2xl font-bold text-stone-900">{value.toLocaleString()}</div>
+      <div className="text-2xl font-bold text-stone-900">
+        {value.toLocaleString()}
+      </div>
     </div>
   );
   return href ? <Link href={href}>{body}</Link> : body;
 }
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
+  return new Date(iso).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
   });
 }
