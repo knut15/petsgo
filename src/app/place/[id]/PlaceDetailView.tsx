@@ -102,9 +102,17 @@ export default function PlaceDetailView({ id }: { id: string }) {
   const petRows: Array<{ label: string; value: string; fullWidth?: boolean }> =
     [];
   if (pet?.acmpyPsblCpam)
-    petRows.push({ label: "동반 조건", value: pet.acmpyPsblCpam });
+    petRows.push({
+      label: "동반 조건",
+      value: pet.acmpyPsblCpam,
+      fullWidth: true,
+    });
   if (pet?.acmpyNeedMtr)
-    petRows.push({ label: "필요 사항", value: stripTags(pet.acmpyNeedMtr) });
+    petRows.push({
+      label: "필요 사항",
+      value: stripTags(pet.acmpyNeedMtr),
+      fullWidth: true,
+    });
   if (pet?.relaAcdntRiskMtr)
     petRows.push({
       label: "사고 위험",
